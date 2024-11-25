@@ -61,3 +61,22 @@ h1 {
   transform: scale(1.5);
   transition: all 300ms cubic-bezier(0.075, 0.82, 0.165, 1);
 }
+
+.sound2 {
+    font-size: 14px;
+    text-transform: uppercase;
+    color: #fff8f5;
+    margin-top: 7px
+  }
+.red{
+    background-color: #fd746c;
+    color: #fff8f5;
+}
+.green{
+    background-color: #6cfd9c;
+    color: #fff8f5;
+}
+
+.bg-green {
+  background-color: green;
+}
