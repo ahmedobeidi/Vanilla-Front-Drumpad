@@ -55,10 +55,10 @@ function notRecordMode(keyCode, key, audio) {
         startRecordDate = Date.now();
     }
     else if (keyCode === 80) { // Call play function
+
         if (notes.length === 0) return;
-        key.classList.add("playing");
+
         playSound(80);  
-        key.classList.remove("playing");
     }
 }
 
@@ -80,8 +80,12 @@ function recordMode(keyCode, key, audio) {
 
 function playSound(keyCode) {
 
-    notes.forEach((note) => {
+    const play = document.querySelector(`.key[data-key='${keyCode}']`);
+    let duration = 0;
 
+    notes.forEach((note) => {
+        
+        play.classList.add("playing");
         setTimeout(() => {
 
             const keyBoardDownEvent = new KeyboardEvent("keydown", { keyCode: note.key });
@@ -89,23 +93,23 @@ function playSound(keyCode) {
             const audio = document.querySelector(`audio[data-key='${note.key}']`);
             const key = document.querySelector(`.key[data-key='${note.key}']`);
             
-            document.dispatchEvent(keyBoardUpEvent);
-
-            audio.currentTime = 0;
-            audio.play();
-
             setTimeout(() => {
-                key.classList.add("playing");
+                audio.currentTime = 0;
+                audio.play();
                 document.dispatchEvent(keyBoardDownEvent);
-                
-            }, 300);
+                key.classList.add("playing");
+            });
 
             setTimeout(() => {
+                document.dispatchEvent(keyBoardUpEvent);
                 key.classList.remove("playing");
-            }, 413);
-            
+            }, 100);
+
+            setTimeout(() => {
+                play.classList.remove("playing");
+            }, notes.length * 120);
             
         }, note.timeCode);  
-       
+        
     });
 }

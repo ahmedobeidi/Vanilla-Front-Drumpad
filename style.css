@@ -1,7 +1,8 @@
 @import url("https://fonts.googleapis.com/css?family=Raleway:400,400i,700");
 
 html, body {
-  background: linear-gradient(to left, #fd746c , #ff9068);
+  /* background: linear-gradient(to left, #fd746c , #ff9068); */
+  background-color: #839788;
   height: 100%;
   width: 100%;
   display: flex;
@@ -67,13 +68,14 @@ h1 {
     text-transform: uppercase;
     color: #fff8f5;
     margin-top: 7px
-  }
+}
 .red{
     background-color: #fd746c;
     color: #fff8f5;
 }
 .green{
-    background-color: #6cfd9c;
+    /* background-color: #6cfd9c; */
+    background-color: #57A773;
     color: #fff8f5;
 }
 
