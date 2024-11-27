@@ -57,7 +57,8 @@ function notRecordMode(keyCode, key, audio) {
     else if (keyCode === 80) { // Call play function
         if (notes.length === 0) return;
         key.classList.add("playing");
-        playSound(key);
+        playSound(80);  
+        key.classList.remove("playing");
     }
 }
 
@@ -70,7 +71,6 @@ function recordMode(keyCode, key, audio) {
         key.dataset.clicked = "false";
         key.classList.remove("playing");
         notes.push({ key: keyCode,timeCode: Date.now() - startRecordDate });
-        // console.log(notes);
     } 
     else if (keyCode === 82) {
         key.classList.remove("playing");
@@ -78,14 +78,34 @@ function recordMode(keyCode, key, audio) {
     }
 }
 
-function playSound(key) {
+function playSound(keyCode) {
 
     notes.forEach((note) => {
-        const audio = document.querySelector(`audio[data-key='${note.key}']`);
-        setTimeout(() => {
-            audio.play();
-        }, note.timeCode);
-    });
 
-    key.classList.remove("playing");
+        setTimeout(() => {
+
+            const keyBoardDownEvent = new KeyboardEvent("keydown", { keyCode: note.key });
+            const keyBoardUpEvent = new KeyboardEvent("keyup", { keyCode: note.key });
+            const audio = document.querySelector(`audio[data-key='${note.key}']`);
+            const key = document.querySelector(`.key[data-key='${note.key}']`);
+            
+            document.dispatchEvent(keyBoardUpEvent);
+
+            audio.currentTime = 0;
+            audio.play();
+
+            setTimeout(() => {
+                key.classList.add("playing");
+                document.dispatchEvent(keyBoardDownEvent);
+                
+            }, 300);
+
+            setTimeout(() => {
+                key.classList.remove("playing");
+            }, 413);
+            
+            
+        }, note.timeCode);  
+       
+    });
 }
